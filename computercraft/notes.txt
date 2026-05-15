@@ -1,0 +1,13 @@
+These are some notes for the computer project
+
+Home base is at -5, 65, 107 or whatever
+He is facing towards positive x (face = 3).
+
+At the start of any script, we'll have him refuel,
+read his location from the location file, and
+store that into the variables from the pos api.
+Only use the "pos.lua" api for the movement and 
+directions of the turtle.
+
+Go home command allows him to return to his original
+location.

@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "name": "Minecraft 1.20.1 with Aether",
+        "link": "/minecraft/Minecraft1.20.1withAether1.20.1.zip"
+    },
+    {
+        "id": 2,
+        "name": "Minecraft 1.20.1 with Aether and Oculus (shader support) more text",
+        "link": "/minecraft/MC1.20.1withForgeAetherOculus.zip"
+    },
+    {
+        "id": 3,
+        "name": "All the Forge 10 v1.4.1 - Make sure you install the right version"
+    },
+    {
+        "id": 4,
+        "name": "CitySpark ModPack 25",
+        "link": "/minecraft/CitySpark_Modpack_25_1.21.1.zip"
+    },
+    {
+        "id": 5,
+        "name": "CitySpark ModPack 25.1",
+        "link": "/minecraft/CitySpark_Modpack_25.1_1.21.1.zip"
+    },
+    {
+        "id": 6,
+        "name": "GloobleCube with Guns",
+        "link": "/minecraft/GloobleCube_6.6.zip"
+    },
+    {
+        "id": 8,
+        "name": "GloobleCube",
+        "isMain": true,
+        "link": "/minecraft/GloobleCube_6.6b.zip"
+    }
+]

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="index.css"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+    <title>Installing Aether with Friends</title>
+</head>
+<body>
+    <div id="main">
+        <h1>Hi there friends</h1>
+        <div id="server-status">
+            <span id="server-status-address"></span>
+            <span id="server-status-indicator"></span>
+            <span id="server-status-text">Checking server status…</span>
+        </div>
+        <i>We will be playing together soon</i>
+        <p>
+            Current server config: <a id="main-config"></a>
+        </p>
+        <p>
+            I'm here to help you install the modpack so that
+            we can all play together and have a fun time! I was
+            able to get it up and running pretty quick, so I have
+            no doubt that you should be able to get it up and
+            running quick too.
+        </p>
+        <p>
+            <a href="./neoforge.html">What if ATLauncher isn't working?</a>
+        </p>
+        <h2>1. Install ATLauncher and Log in</h2>
+        <hr>
+        <p>
+            Head to the <a href="https://atlauncher.com/downloads" target="_blank">ATLauncher Downloads</a>
+            page and download the proper ATLauncher for your operating system.
+            Run the installer and when installed it should look something
+            like this:
+        </p>
+        <img src="imgs/atlauncherlanding.png" class="instruct-image"></img>
+        <p>
+            You do need a Java Minecraft Account to play, go to the <code>Accounts</code> tab
+            on the right and enter your Microsoft account credentials. Without this you won't
+            be able to play.
+        </p>
+        <h2>2. Download and install the ModPack</h2>
+        <hr>
+        <p>
+            ModPacks are available at <a href="./modpacks.html">this link</a>. Navigate to this page and 
+            select a modpack that you want to try, then copy the link. It will show which modpack is currently being
+            used by the server, and how to copy links.
+        </p>
+        <p>
+            If you copied a link from the <a href="./modpacks.html">ModPacks</a> page,
+            then go to the <code>Instances</code> tab in ATLauncher and click <code>Import</code>.
+            Paste the link you copied into the URL text field and click <code>Import</code>.
+        </p>
+        <img src="imgs/atlauncherimport.png" class="instruct-image"></img>
+        <p>
+            Another pop up should appear. Give the installation a name and click <code>Install</code>.
+            Right now the version that we are using is 1.21.1, so make sure that that
+            version is selected as well (it should be automatically selected when you get to this step).
+        </p>
+        <img src="imgs/atlauncherimportinstall.png" class="instruct-image"></img>
+        <h2>3. Start Playing Minecraft</h2>
+        <hr>
+        <p>
+            Now under your instances tab there should be a new instance of the game with
+            the name that you gave it in the last pop-up menu. Click <code>Play</code>
+            to open Minecraft.
+        </p>
+        <p>
+            To ensure that the modpack is successfully installed, you can 
+            create a new world in Creative Mode and open your inventory. There should
+            be a set of arrows to allow you to switch to the other mods' inventory sections,
+            and you can try placing all the new blocks.
+        </p>
+        <img src="imgs/aethershot.png" class="instruct-image"/>
+        <h2>4. Join our Minecraft Server</h2>
+        <hr>
+        <p>
+            From the main menu click the <code>Multiplayer</code> button, then click
+            <code>Add Server</code>. Give the server a name and input the address of
+            <code>mc.glooble.wtf</code>. After clicking <code>Done</code>, you should be able
+            to select the server from the list and click <code>Join Server</code> to join!
+        </p>
+        <img src="imgs/addserver.png" class="instruct-image"/>
+        <h3>Happy Crafting! See you soon! </h3>
+    </div>
+    <script>
+        async function fetch_server_status() {
+            const statusEl = document.getElementById('server-status');
+            const indicatorEl = document.getElementById('server-status-indicator');
+            const textEl = document.getElementById('server-status-text');
+            const addressEl = document.getElementById('server-status-address');
+            try {
+                const response = await fetch('https://api.mcsrvstat.us/3/mc.glooble.wtf');
+                const data = await response.json();
+                if (data.online) {
+                    const motd = (data.motd?.clean || []).join(' ').trim() || 'mc.glooble.wtf';
+                    const players = data.players?.online ?? 0;
+                    const maxPlayers = data.players?.max ?? '?';
+                    addressEl.innerHTML = '<strong>mc.glooble.wtf</strong>';
+                    indicatorEl.textContent = '🟢';
+                    textEl.innerHTML = `<strong>${motd}</strong> &mdash; ${players}/${maxPlayers} players online`;
+                    statusEl.classList.add('online');
+                } else {
+                    indicatorEl.textContent = '🔴';
+                    textEl.textContent = 'Server is currently offline';
+                    statusEl.classList.add('offline');
+                }
+            } catch (e) {
+                indicatorEl.textContent = '⚠️';
+                textEl.textContent = 'Could not reach server status API';
+            }
+        }
+
+        async function populate_page() {
+            try {
+                const response = await fetch('/modpack-table.json');
+                const data = await response.json();
+
+                for (conf of data) {
+                    if (conf.isMain) {
+
+                        const atag = document.getElementById('main-config')
+                        atag.textContent = conf.name || 'Loading...';
+                        atag.href = `https://blob.ty-davis.com${conf.link}`;
+                        atag.style.pointerEvents = 'auto';
+                        break;
+                    }
+                }
+                console.log(data);
+            } catch (error) {
+                console.error('Error loading modpack data:', error);
+                const atag = document.getElementById('main-config')
+                atag.textContent = 'Error loading config';
+                atag.href = "";
+                atag.style.pointerEvents = 'none';
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            fetch_server_status();
+            populate_page();
+        });
+    </script>
+</body>
+</html>

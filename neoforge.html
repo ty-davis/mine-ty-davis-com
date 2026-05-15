@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="index.css"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+    <title>NeoForge Manual Install</title>
+</head>
+<body>
+    <div id="main">
+        <h1>What if ATLauncher isn't working?</h1>
+        <i>Manual installation using NeoForge</i>
+        <p>
+            If ATLauncher isn't cooperating, don't worry — you can set things up manually using
+            <strong>NeoForge</strong>. This involves installing NeoForge directly, then dropping in
+            the mods, configs, and datapacks yourself. It takes a few more steps, but it works just
+            as well. Follow the steps below and you'll be good to go.
+        </p>
+        <p>
+            You'll need a working <strong>Java Minecraft</strong> installation (via the official
+            Minecraft Launcher) before starting. Make sure you can launch vanilla Minecraft 1.21.1
+            at least once first.
+        </p>
+
+        <h2>1. Download and Install NeoForge</h2>
+        <hr>
+        <p>
+            Head to the <a href="https://neoforged.net/" target="_blank">NeoForge website</a> and
+            click the download button for the latest version of NeoForge for
+            <strong>Minecraft 1.21.1</strong>. Make sure you're selecting <code>1.21.1</code> and
+            not a different version.
+        </p>
+        <p>
+            Once the installer (<code>.jar</code> file) downloads, run it by double-clicking it.
+            If it doesn't open, you may need to right-click → <code>Open with → Java</code>.
+            In the installer window, make sure <code>Install client</code> is selected, then
+            click <code>OK</code>. The installer will download the necessary files and set up a
+            NeoForge profile in your Minecraft launcher automatically.
+        </p>
+
+        <h2>2. Test the NeoForge Profile</h2>
+        <hr>
+        <p>
+            Open the official <strong>Minecraft Launcher</strong>. In the profile selector at the
+            bottom left, you should now see a profile along the lines of
+            <code>NeoForge 1.21.1-...</code>. Select it and click <code>Play</code>.
+        </p>
+        <p>
+            Let the game launch all the way to the main menu to confirm everything is working
+            before moving on. You don't need to do anything in-game — just make sure it loads
+            without errors. Once confirmed, close Minecraft and come back here.
+        </p>
+
+        <h2>3. Download the Mods Package</h2>
+        <hr>
+        <p>
+            Click the link below to download the mods package. It's a large zip file containing
+            all of the mods, configs, and datapacks needed to join the server.
+        </p>
+        <p>
+            <a>Download Mods Package</a>
+        </p>
+        <p>
+            Once the download finishes, extract the zip file somewhere easy to find, like your
+            Desktop. You should see a folder containing subfolders like
+            <code>mods</code>, <code>config</code>, <code>defaultconfigs</code>,
+            <code>datapacks</code>, and possibly others.
+        </p>
+
+        <h2>4. Install the Mods</h2>
+        <hr>
+        <p>
+            You'll need to find your <code>.minecraft</code> folder. Its location depends on your
+            operating system:
+        </p>
+
+        <div class="tab-container">
+            <div class="tab-buttons">
+                <button class="tab-btn active" data-tab="windows">Windows</button>
+                <button class="tab-btn" data-tab="mac">macOS</button>
+                <button class="tab-btn" data-tab="linux">Linux</button>
+            </div>
+            <div class="tab-panel active" id="tab-windows">
+                <p>
+                    Press <code>Win + R</code> to open the Run dialog, type
+                    <code>%appdata%\.minecraft</code>, and press Enter. This will open
+                    your <code>.minecraft</code> folder directly in File Explorer.
+                </p>
+            </div>
+            <div class="tab-panel" id="tab-mac">
+                <p>
+                    Open <strong>Finder</strong>, then in the menu bar click
+                    <code>Go → Go to Folder…</code> and type:
+                    <code>~/Library/Application Support/minecraft</code>
+                </p>
+            </div>
+            <div class="tab-panel" id="tab-linux">
+                <p>
+                    Your <code>.minecraft</code> folder is located at
+                    <code>~/.minecraft</code>. You can navigate there in your file manager
+                    (make sure hidden files are shown) or open a terminal and run
+                    <code>xdg-open ~/.minecraft</code>.
+                </p>
+            </div>
+        </div>
+
+        <p>
+            Inside your <code>.minecraft</code> folder, you'll find folders that match what's
+            in the zip you extracted. For each matching folder (e.g. <code>mods</code>,
+            <code>config</code>, <code>defaultconfigs</code>, <code>datapacks</code>):
+        </p>
+        <ol>
+            <li>
+                <strong>Delete or rename</strong> the existing folder.
+                If you want to keep your old settings or mods, rename it — for example,
+                rename <code>config</code> to <code>config_backup</code> — so it's out of
+                the way but not lost.
+            </li>
+            <li>
+                <strong>Copy the matching folder</strong> from the extracted zip into
+                your <code>.minecraft</code> folder in its place.
+            </li>
+        </ol>
+        <p>
+            Repeat this for every folder that came in the zip file. Once done, open the
+            Minecraft Launcher, select the NeoForge profile, and hit <code>Play</code>.
+            If everything went smoothly, the game should load up with all the mods active.
+        </p>
+        <p>
+            To double-check, create a new Creative world and open your inventory — you should
+            see extra tabs for the new mods' items and blocks, same as the ATLauncher version.
+        </p>
+
+        <h2>5. Join the Server</h2>
+        <hr>
+        <p>
+            From the main menu click <code>Multiplayer</code>, then <code>Add Server</code>.
+            Give it a name and enter <code>mc.ty-davis.com</code> as the address. Click
+            <code>Done</code>, then select the server and click <code>Join Server</code>. See
+            you there!
+        </p>
+
+        <h3>Happy Crafting! See you soon!</h3>
+        <p><a href="./index.html">← Back to the main guide</a></p>
+    </div>
+
+    <script>
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.dataset.tab;
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById('tab-' + tab).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

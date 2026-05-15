@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="index.css"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+    <title>Installing Aether - Friends</title>
+</head>
+<body>
+    <div id="main">
+        <h1>List of downloadable modpacks</h1>
+        <p>
+            Copy any of the below links (right click → Copy Link Address or click the "Copy" button)
+            and you'll use that in the ATLauncher as outlined in my
+            <a href="./index.html">guide</a>.
+
+            If there isn't a link available then it can be easily downloaded
+            using the ATLauncher. Just search the name and ensure that you
+            have the right version.
+        </p>
+        <div class="table-wrapper">
+            <table id="main-modpack-table" class="modpack-table"></table>
+        </div>
+    </div>
+    <script>
+        let mainModpackTable = document.getElementById('main-modpack-table');
+        console.log("Working")
+        fetch('./modpack-table.json')
+            .then(response => response.json())
+            .then(data => {
+                data.sort((a, b) => (a.id - b.id));
+                data.forEach(item => {
+                    newRow = document.createElement('tr');
+                    newName = document.createElement('td');
+                    newLinkCell = document.createElement('td');
+                    newLink = document.createElement('a');
+                    newCopyLinkCell = document.createElement('td');
+                    newCopyLink = document.createElement('button');
+
+                    newName.innerHTML = item.name;
+
+                    newLink.href = item.link;
+                    newLink.innerHTML = "Link";
+
+                    newCopyLink.innerHTML = 'Copy';
+                    newCopyLink.className = "copy-button";
+                    newCopyLink.onclick = () => {
+                        console.log("Link copied");
+                        navigator.clipboard.writeText(`https://blob.ty-davis.com${item.link}`);
+                    }
+
+                    newRow.appendChild(newName);
+
+                    if (item.link) {
+                        newLinkCell.appendChild(newLink);
+                        newRow.appendChild(newLinkCell);
+
+                        newCopyLinkCell.appendChild(newCopyLink);
+                        newRow.appendChild(newCopyLinkCell);
+                    }
+
+
+
+                    if (item.isMain || item.isCompatible) {
+                        newIsMain = document.createElement('td')
+                        newIsMain.colSpan = 3;
+                        newIsMain.innerHTML = 'Current Version on Server' ? 'Compatible': item.isMain;
+                        newIsMain.innerHTML = item.isMain ? 'Current Version on Server' : 'Compatible with Current Version';
+                        newRow.appendChild(newIsMain);
+                    }
+                    
+                    mainModpackTable.appendChild(newRow);
+                });
+            });
+    </script>
+</body>
+</html>
