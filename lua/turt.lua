@@ -1,78 +1,14 @@
 local turt_startup = function()
-  local startup_code = [[
-local turt = require("turt")
+  local endpoint = "https://mine.ty-davis.com"
 
-local function prompt(msg, default)
-  io.write(msg .. " ")
-  local val = io.read()
-  if val == "" and default ~= nil then return default end
-  return val
-end
-
-local function promptNum(msg, default)
-  local val
-  repeat
-    val = tonumber(prompt(msg, tostring(default)))
-    if not val then print("Please enter a number.") end
-  until val
-  return val
-end
-
-local options = {
-  "Dig box (fullbox)",
-  "Dig line",
-  "Dig staircase",
-  "Lay floor / ceiling",
-  "Convert powder",
-  "Check fuel",
-}
-
-print("=== Turt Menu ===")
-for k, v in pairs(options) do
-  print(k .. " - " .. v)
-end
-
-local choice
-repeat
-  io.write("> ")
-  choice = tonumber(io.read())
-until choice and choice >= 1 and choice <= #options
-
-if choice == 1 then
-  local l = promptNum("Length?", 10)
-  local w = promptNum("Width?", 10)
-  local h = promptNum("Height?", 3)
-  turt.box.fullbox(l, w, h)
-
-elseif choice == 2 then
-  local len = promptNum("Length?", 10)
-  local height = promptNum("Dig height (1-3)?", 3)
-  turt.line.line(len, height)
-
-elseif choice == 3 then
-  local dir = prompt("Direction (up/down)?", "down")
-  local amt = promptNum("Steps?", 16)
-  turt.stair.stair(dir, amt)
-
-elseif choice == 4 then
-  local l = promptNum("Length?", 10)
-  local w = promptNum("Width?", 10)
-  local ceil = prompt("Ceiling mode? (y/n)", "n")
-  ceil = (ceil == "y")
-  local block = prompt("Block name (leave blank to use block below/above turtle)?", "")
-  if block == "" then block = nil end
-  turt.floor.floor(l, w, ceil, block)
-
-elseif choice == 5 then
-  turt.powder.convert()
-
-elseif choice == 6 then
-  local level = turtle.getFuelLevel()
-  print("Fuel level: " .. tostring(level))
-end
-
-print("Done.")
-]]
+  print("Downloading startup.lua...")
+  local request = http.get(endpoint .. "/lua/startup.lua")
+  if not request then
+    print("Error: Failed to download startup.lua")
+    return
+  end
+  local startup_code = request.readAll()
+  request.close()
 
   if fs.exists("/startup.lua") then
     print("Moving current startup.lua to startup_old.lua")
@@ -81,6 +17,7 @@ print("Done.")
   local f = fs.open("/startup.lua", "w")
   f.write(startup_code)
   f.close()
+
   print("startup.lua written. Reboot to launch the turt menu.")
 end
 
