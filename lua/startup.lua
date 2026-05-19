@@ -26,23 +26,34 @@ local function moveTurtle()
   while true do
     io.write("> ")
     local input = io.read()
-
     if input == "" then
       break
-    elseif input == "w" then
-      if not turtle.forward() then print("Blocked.") end
-    elseif input == "s" then
-      if not turtle.back() then print("Blocked.") end
-    elseif input == "a" then
-      turtle.turnLeft()
-    elseif input == "d" then
-      turtle.turnRight()
-    elseif input == "e" then
-      if not turtle.up() then print("Blocked.") end
-    elseif input == "q" then
-      if not turtle.down() then print("Blocked.") end
+    end
+
+    local count_s, command = string.match(input, "^(%d*)%s?(.)")
+    if count_s and count_s ~= "" then
+      count = tonumber(count_s)
     else
-      print("Unknown input: '" .. input .. "'")
+      count = 1
+    end
+
+    for i = 1,count do
+      if command == "w" then
+        if not turtle.forward() then print("Blocked.") end
+      elseif command == "s" then
+        if not turtle.back() then print("Blocked.") end
+      elseif command == "a" then
+        turtle.turnLeft()
+      elseif command == "d" then
+        turtle.turnRight()
+      elseif command == "e" then
+        if not turtle.up() then print("Blocked.") end
+      elseif command == "q" then
+        if not turtle.down() then print("Blocked.") end
+      else
+        print("Unknown input: '" .. input .. "'")
+        break
+      end
     end
   end
 end
