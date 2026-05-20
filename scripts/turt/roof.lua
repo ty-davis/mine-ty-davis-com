@@ -54,6 +54,14 @@ function mod.slits(steps, w, block)
     end
 end
 
-function mod.slabslits(steps, )
+function mod.slabslits(steps, w, block, slab)
+    fuel.checknfueld(w)
+    for i=1,w do
+        mod.slabslit(steps, block, slab)
+        turtle.turnRight()
+        turtle.forward()
+        turtle.turnLeft()
+    end
+end
 
 return mod
