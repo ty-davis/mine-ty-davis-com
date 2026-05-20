@@ -18,9 +18,11 @@ end
 
 local function moveTurtle()
   print("\n=== Move Turtle ===")
-  print("  w - forward    s - back")
-  print("  a - turn left  d - turn right")
-  print("  e - up         q - down")
+  print("  f - forward    b - back")
+  print("  l - turn left  r - turn right")
+  print("  u - up         d - down")
+  print("")
+  print("Use a number before to repeat command (e.g. 10w)")
   print("(empty to return to menu)")
 
   while true do
@@ -38,17 +40,17 @@ local function moveTurtle()
     end
 
     for i = 1,count do
-      if command == "w" then
+      if command == "f" then
         if not turtle.forward() then print("Blocked.") end
-      elseif command == "s" then
+      elseif command == "b" then
         if not turtle.back() then print("Blocked.") end
-      elseif command == "a" then
+      elseif command == "l" then
         turtle.turnLeft()
-      elseif command == "d" then
+      elseif command == "r" then
         turtle.turnRight()
-      elseif command == "e" then
+      elseif command == "u" then
         if not turtle.up() then print("Blocked.") end
-      elseif command == "q" then
+      elseif command == "d" then
         if not turtle.down() then print("Blocked.") end
       else
         print("Unknown input: '" .. input .. "'")
