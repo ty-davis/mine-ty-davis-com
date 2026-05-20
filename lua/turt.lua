@@ -1,5 +1,6 @@
 local turt_startup = function()
-  local endpoint = "https://mine.ty-davis.com"
+  local endpoint = "http://localhost:8000" -- TODO: REMOVE THIS
+  -- local endpoint = "https://mine.ty-davis.com"
 
   print("Downloading startup.lua...")
   local request = http.get(endpoint .. "/lua/startup.lua")
@@ -62,7 +63,8 @@ local install_turt = function()
   fs.makeDir("/turttemp")
   shell.setDir("/turttemp")
   print("Installing unbundle...")
-  local endpoint = "https://mine.ty-davis.com"
+  local endpoint = "http://localhost:8000" -- TODO: REMOVE THIS
+  -- local endpoint = "https://mine.ty-davis.com"
   local request = http.get(endpoint .. "/lua/unbundle.lua")
   local bundle_f = fs.open("/turttemp/unbundle.lua", "w")
   bundle_f.write(request.readAll())

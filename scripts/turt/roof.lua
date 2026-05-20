@@ -6,7 +6,8 @@ mod = {}
 
 function mod.slit(steps, block)
     block = block or 'stair'
-    
+
+    turtle.down()
     turtle.turnRight()
     turtle.turnRight()
     fuel.checknfuel(steps*3)
@@ -26,9 +27,21 @@ function mod.slit(steps, block)
         turtle.back()
         turtle.down()
     end
-    turtle.up()
     turtle.forward()
-    
+end
+
+function mod.slabslit(steps, block, slab)
+    fuel.checknfuel(steps*5)
+    for i = 1,steps do
+        turtle.down()
+        item.placed(slab)
+        turtle.up()
+        item.placed(slab)
+        turtle.forward()
+        item.placed(block)
+        turtle.up()
+        turtle.forward()
+    end
 end
 
 function mod.slits(steps, w, block)
@@ -38,8 +51,9 @@ function mod.slits(steps, w, block)
         turtle.turnRight()
         turtle.forward()
         turtle.turnLeft()
-        turtle.down()
     end
 end
+
+function mod.slabslits(steps, )
 
 return mod
